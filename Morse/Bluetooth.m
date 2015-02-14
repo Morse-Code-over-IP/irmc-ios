@@ -42,7 +42,7 @@
 
 - (void)startScanning {
     NSLog(@"start scanning");
-    [self.centralManager scanForPeripheralsWithServices:@[RWT_BLE_SERVICE_UUID] options:nil];
+    [self.centralManager scanForPeripheralsWithServices:@[UART_SERVICE_UUID] options:nil];
 }
 
 - (void)setBleService:(BTService *)bleService {
@@ -194,7 +194,7 @@
 - (void)startDiscoveringServices {
     NSLog(@"Start discovering...");
     
-    [self.peripheral discoverServices:@[RWT_BLE_SERVICE_UUID]];
+    [self.peripheral discoverServices:@[UART_SERVICE_UUID]];
 }
 
 - (void)reset {
@@ -230,7 +230,7 @@
     }
     
     for (CBService *service in services) {
-        if ([[service UUID] isEqual:RWT_BLE_SERVICE_UUID]) {
+        if ([[service UUID] isEqual:UART_SERVICE_UUID]) {
             NSLog(@"found my service (uart)");
             [peripheral discoverCharacteristics:uuidsForBTService forService:service];
             NSLog(@"discovering done (uart)");

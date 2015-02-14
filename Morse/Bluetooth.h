@@ -9,17 +9,15 @@
 #ifndef Morse_Bluetooth_h
 #define Morse_Bluetooth_h
 
-
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-
 
 /* Services & Characteristics UUIDs for nRF8001 */
 
 // icd: https://github.com/michaelkroll/BLE-Shield/blob/master/firmware/BLE-Shield-v2.0.0/BLE-Shield_gatt.xml
 // icd nrf8001: https://devzone.nordicsemi.com/documentation/nrf51/6.0.0/s110/html/a00066.html
 
-#define RWT_BLE_SERVICE_UUID		[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"] // FIMXE
+#define UART_SERVICE_UUID           [CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"]
 #define TX_CHARACTERISTIC_UUID      [CBUUID UUIDWithString:@"6E400002-B5A3-F393-E0A9-E50E24DCCA9E"]
 #define RX_CHARACTERISTIC_UUID      [CBUUID UUIDWithString:@"6E400003-B5A3-F393-E0A9-E50E24DCCA9E"]
 
@@ -36,8 +34,6 @@ static NSString* const RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION = @"kBLEServi
 - (void)writePosition:(UInt8)position;
 
 @end
-
-
 
 
 @interface BTDiscovery : NSObject <CBCentralManagerDelegate>
