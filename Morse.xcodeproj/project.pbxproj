@@ -94,7 +94,6 @@
 		7F1E35231A5AE782008D519D = {
 			isa = PBXGroup;
 			children = (
-				7F5C5AE41A62F586001B6727 /* Classes */,
 				7F1E352E1A5AE782008D519D /* Morse */,
 				7F1E354B1A5AE782008D519D /* MorseTests */,
 				7F1E352D1A5AE782008D519D /* Products */,
@@ -120,6 +119,7 @@
 				7F1E35361A5AE782008D519D /* Morse.xcdatamodeld */,
 				7F1E353C1A5AE782008D519D /* Main.storyboard */,
 				7F1E35411A5AE782008D519D /* LaunchScreen.xib */,
+				7F2977B91A8FE32C00252B4D /* Bluetooth */,
 				7F1E352F1A5AE782008D519D /* Supporting Files */,
 				7FC525C71A5B3651005A89CA /* Networking */,
 				7FC525C81A5B366F005A89CA /* CWCom Protocol */,
@@ -164,14 +164,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7F5C5AE41A62F586001B6727 /* Classes */ = {
+		7F2977B91A8FE32C00252B4D /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
 				7F2977B61A8FDF4500252B4D /* Bluetooth.h */,
 				7F2977B71A8FDF7700252B4D /* Bluetooth.m */,
 			);
-			name = Classes;
-			path = Morse;
+			name = Bluetooth;
 			sourceTree = "<group>";
 		};
 		7FC525C71A5B3651005A89CA /* Networking */ = {

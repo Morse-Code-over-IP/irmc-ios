@@ -5,6 +5,11 @@
 //  Created by Dr. Gerolf Ziegenhain on 14.02.15.
 //  Copyright (c) 2015 Dr. Gerolf Ziegenhain. All rights reserved.
 //
+//  Contains code from a low energy bluetooth tutorial by Owen Lacy Brown
+
+
+//  The stuff below depends on nRF8001 arduino code in another repo ;)
+
 
 #ifndef Morse_Bluetooth_h
 #define Morse_Bluetooth_h

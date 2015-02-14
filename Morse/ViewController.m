@@ -27,7 +27,6 @@
 //#undef DEBUG
 //#define DEBUG_NET
 //#define DEBUG_TX
-//#define EXT_KEY
 #define SCROLLVIEWLOG
 
 OSStatus RenderTone(
@@ -403,9 +402,16 @@ identifyclient
     [self initCWvars];
     [self inittone];
     [self displaywebstuff];
-#ifdef EXT_KEY
-    [self beep:(1000)];
-#endif
+
+    // External key stuff
+    NSLog(@"watch bt");
+    // Watch Bluetooth connection
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btconnectionChanged:) name:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:nil];
+    
+    // Start the Bluetooth discovery process
+    [BTDiscovery sharedInstance];
+    NSLog(@"done load");
+
     
     enter_id.delegate = self;
     enter_channel.delegate = self;
@@ -421,6 +427,10 @@ identifyclient
     txt_version.text = [NSString stringWithFormat:@"Version: %@ (%@)", appVersionString, appBuildString];
 }
 
+- (void)btconnectionChanged:(NSNotification *)notification {
+    // Connection status changed. Indicate on GUI.
+    // some stuff could be done here...
+}
 
 -(void)displaywebstuff
 {
@@ -515,8 +525,7 @@ identifyclient
 }
 
 //FIXME: This method can go into cwcom. - modify for (a) recv (b) process
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
-      fromAddress:(NSData *)address
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
     int i;
@@ -596,6 +605,11 @@ withFilterContext:(id)filterContext
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+}
+
+- (void)dealloc {
+    //FIXME: NAME RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
