@@ -128,7 +128,6 @@
 				7F2977B91A8FE32C00252B4D /* Bluetooth */,
 				7F1E352F1A5AE782008D519D /* Supporting Files */,
 				7FC525C71A5B3651005A89CA /* Networking */,
-				7F2977C41A8FF13B00252B4D /* CWCom Implementation */,
 				7FC525C81A5B366F005A89CA /* CWCom Protocol */,
 				7F2977C01A8FE91E00252B4D /* Tone */,
 			);
@@ -190,15 +189,6 @@
 			name = Tone;
 			sourceTree = "<group>";
 		};
-		7F2977C41A8FF13B00252B4D /* CWCom Implementation */ = {
-			isa = PBXGroup;
-			children = (
-				7F2977C51A8FF49000252B4D /* cwcom.m */,
-				7F2977C71A8FF4A000252B4D /* cwcom.h */,
-			);
-			name = "CWCom Implementation";
-			sourceTree = "<group>";
-		};
 		7FC525C71A5B3651005A89CA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +201,8 @@
 		7FC525C81A5B366F005A89CA /* CWCom Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				7F2977C51A8FF49000252B4D /* cwcom.m */,
+				7F2977C71A8FF4A000252B4D /* cwcom.h */,
 				7F162FA81A5B0E2900945D4C /* cwprotocol.h */,
 				7F162FA91A5B0E4600945D4C /* cwprotocol.c */,
 			);

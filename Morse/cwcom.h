@@ -16,10 +16,8 @@
 #define TX_WAIT  5000
 #define TX_TIMEOUT 240.0
 
-
 #define KEEPALIVE_CYCLE 100 //msec
 #define NUMSEND 5
-
 
 #define MAXDATASIZE 1024 // max number of bytes we can get at once
 #define LATCHED 0
@@ -29,9 +27,6 @@
 
 
 @interface cwcom : NSObject
-
-
--(void)initCWvars;
 @end
 
 #endif
