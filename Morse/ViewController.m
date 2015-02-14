@@ -17,8 +17,7 @@
 #include <mach/mach.h>
 
 #include "cwprotocol.h"
-
-//#import "FFTBufferManager.h"
+#include "Bluetooth.h"
 
 #define SERVERNAME_MORSE "morsecode.dyndns.org"
 #define SERVERNAME_SOUNDER "mtc-kob.dyndns.org" 
@@ -616,8 +615,7 @@ void current_utc_time(struct timespec *ts) {
 }
 //FIXME: This method can go into cwcom.
 /* a better clock() in milliseconds */
-long
-fastclock(void)
+long fastclock(void)
 {
     struct timespec t;
     long r;
@@ -776,23 +774,6 @@ fastclock(void)
 
 
  /*
-TODO: Bluetooth serial support? 
-  http://www.adafruit.com/products/1697 20$, appstore possible
-alternative to this: more information on arduino: https://github.com/michaelkroll/BLE-Shield diy shield
-  http://learn.adafruit.com/downloads/pdf/getting-started-with-the-nrf8001-bluefruit-le-breakout.pdf
-  http://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF8001
-  
-  SCK
-  MISO
-  MOSI
-  REQ
-  RDY
-  ACT
-  RST
-  3Vo
-  GND
-  VIN
-  
   
   http://kob.sdf.org/morsekob/interface.htm#portpins
   RS232     DB9     Function    
@@ -803,26 +784,5 @@ alternative to this: more information on arduino: https://github.com/michaelkrol
   SG        5       Sounder ground
  
  */
-
-
-
-
-#ifdef EXT_KEY
-/*
- 1(Tip) - Key (Ground)
- 2 - Ear (Contact)
- 3 - Ear (Ground)
- 4(Ground) - R2(46,6k ge-br?-sw-rt-br) - Key 1
- 4(Ground) - R3(22k br-rt-sw-rt-rt) - Key 2
- 4(Ground) - R1(1k br-sw-sw-br-br) - 3
- 
- (1) left earphone (tip), (2) right earphone (ring), (3) com- mon/ground (ring), and (4) microphone (sleeve)
- 
- 
- https://web.eecs.umich.edu/~prabal/pubs/papers/kuo10hijack.pdf
- https://code.google.com/p/hijack-main/
- 
- */
-#endif
 
 @end
