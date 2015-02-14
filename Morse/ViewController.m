@@ -16,12 +16,9 @@
 
 
 #include "cwprotocol.h"
+#include "cwcom.h"
 #include "Bluetooth.h"
 #include "Tone.h"
-
-#define SERVERNAME_MORSE "morsecode.dyndns.org"
-#define SERVERNAME_SOUNDER "mtc-kob.dyndns.org" 
-#define PORT 7890
 
 
 //#undef DEBUG
@@ -30,18 +27,13 @@
 #define SCROLLVIEWLOG
 
 
-
 void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
-    ViewController *vviewController =
-    (__bridge ViewController *)inClientData;
-    
+    ViewController *vviewController = (__bridge ViewController *)inClientData;
     [vviewController stop];
 }
 
 @interface ViewController ()
-
-
 
 @end
 
@@ -240,6 +232,7 @@ identifyclient
     enter_channel.placeholder = @"33";
     
     sounder = false;
+    
 }
 
 // This method is called once we click inside the textField

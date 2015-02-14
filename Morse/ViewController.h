@@ -12,16 +12,6 @@
 #include "cwprotocol.h"
 #include "GCDAsyncUdpSocket.h"
 
-#define TX_WAIT  5000
-#define TX_TIMEOUT 240.0
-#define KEEPALIVE_CYCLE 100 //msec
-#define NUMSEND 5
-
-#define MAXDATASIZE 1024 // max number of bytes we can get at once
-#define LATCHED 0
-#define UNLATCHED 1
-#define CONNECTED 0
-#define DISCONNECTED 1
 
 @interface ViewController : UIViewController
 {

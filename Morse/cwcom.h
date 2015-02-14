@@ -6,16 +6,32 @@
 //  Copyright (c) 2015 Dr. Gerolf Ziegenhain. All rights reserved.
 //
 
-#ifndef __Morse__cwcom__
-#define __Morse__cwcom__
+#ifndef Morse_cwcom_h
+#define Morse_cwcom_h
 
-#include <stdio.h>
+#define SERVERNAME_MORSE "morsecode.dyndns.org"
+#define SERVERNAME_SOUNDER "mtc-kob.dyndns.org"
+#define PORT 7890
+
+#define TX_WAIT  5000
+#define TX_TIMEOUT 240.0
 
 
-class cwcom
-{
-public:
-    int i;
-};
+#define KEEPALIVE_CYCLE 100 //msec
+#define NUMSEND 5
 
-#endif /* defined(__Morse__cwcom__) */
+
+#define MAXDATASIZE 1024 // max number of bytes we can get at once
+#define LATCHED 0
+#define UNLATCHED 1
+#define CONNECTED 0
+#define DISCONNECTED 1
+
+
+@interface cwcom : NSObject
+
+
+-(void)initCWvars;
+@end
+
+#endif
