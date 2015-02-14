@@ -616,20 +616,8 @@ withFilterContext:(id)filterContext
 {
 }
 
-//FIXME: This method can go into cwcom.
 
-//FIXME: This method can go into cwcom.
-/* a better clock() in milliseconds */
-long fastclock(void)
-{
-    struct timespec t;
-    long r;
-    
-    current_utc_time (&t);
-    r = t.tv_sec * 1000;
-    r = r + t.tv_nsec / 1000000;
-    return r;
-}
+
 
 //FIXME: This method can go into cwcom. - modify for buttonup
 -(void)buttonIsDown
