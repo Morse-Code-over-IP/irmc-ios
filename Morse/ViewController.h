@@ -31,9 +31,6 @@
     AudioComponentInstance toneUnit;
     
 @public
-    double frequency;
-    double sampleRate;
-    double theta;
     int fd_socket;
     NSTimer*  myTimer;
     struct command_packet_format connect_packet;
