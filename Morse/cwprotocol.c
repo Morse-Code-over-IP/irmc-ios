@@ -1,4 +1,11 @@
 #include <stdio.h>
+
+#define OSX
+#ifdef OSX
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
+
 #include "cwprotocol.h"
 
 int prepare_id (struct data_packet_format *id_packet, char *id)
@@ -33,4 +40,15 @@ int prepare_tx (struct data_packet_format *tx_packet, char *id)
 	snprintf(tx_packet->status, SIZE_STATUS, "?");
 	
 	return 0;
+}
+
+/* portable time, as listed in https://gist.github.com/jbenet/1087739  */
+void current_utc_time(struct timespec *ts) {
+    clock_serv_t cclock;
+    mach_timespec_t mts;
+    host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+    clock_get_time(cclock, &mts);
+    mach_port_deallocate(mach_task_self(), cclock);
+    ts->tv_sec = mts.tv_sec;
+    ts->tv_nsec = mts.tv_nsec;
 }
