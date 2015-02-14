@@ -362,14 +362,12 @@ identifyclient
     [self inittone];
     [self displaywebstuff];
 
-    // External key stuff
-    NSLog(@"watch bt");
+    // Starting bluetooth for external key
+    NSLog(@"Starting bluetooth");
     // Watch Bluetooth connection
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btconnectionChanged:) name:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:nil];
-    
     // Start the Bluetooth discovery process
     [BTDiscovery sharedInstance];
-    NSLog(@"done load");
 
     
     enter_id.delegate = self;
@@ -436,7 +434,7 @@ identifyclient
 #endif
 }
 
-
+// FIXME: can go to sound
 -(BOOL) playSoundFXnamed: (NSString*) vSFXName Loop: (BOOL) vLoop
 {
     NSError *error;
@@ -465,7 +463,7 @@ identifyclient
     return success;
 }
 
-
+// FIXME: can go to sound
 - (void)play_clack
 {
     NSLog(@"play clack");
@@ -474,6 +472,7 @@ identifyclient
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
     AudioServicesPlaySystemSound (completeSound);
 }
+// FIXME: can go to sound
 - (void)play_click
 {
     NSLog(@"play click");
@@ -618,23 +617,7 @@ withFilterContext:(id)filterContext
     NSLog(@"timing: %d", timing);
 #endif
 
-    
-    //NSLog(@"mark: %i\n", tx_data_packet.code[tx_data_packet.n -1]);
-    /* TBD = TIMEOUT FOR keypress maximal 5 seconds
-    while(1){
-        ioctl(fd_serial, TIOCMGET, &serial_status);
-        if(serial_status & TIOCM_DSR) break;
-        tx_timeout = fastclock() - key_release_t1;
-        if(tx_timeout > TX_TIMEOUT) return;
-    }
-    key_press_t1 = fastclock();
-    if(tx_data_packet.n == SIZE_CODE) {
-        NSLog(@"irmc: warning packet is full.\n");
-        return;
-    }
-*/
     [self send_data];
-    //[self send_tx_packet]; // FIXME: why run the code below, if we can send right now?
 }
 
 //FIXME: This method can go into cwcom.

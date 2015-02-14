@@ -23,6 +23,7 @@
 		7F1E354F1A5AE782008D519D /* MorseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E354E1A5AE782008D519D /* MorseTests.m */; };
 		7F2977B81A8FDF7700252B4D /* Bluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977B71A8FDF7700252B4D /* Bluetooth.m */; };
 		7F2977BE1A8FE90A00252B4D /* Tone.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977BD1A8FE90A00252B4D /* Tone.m */; };
+		7F2977C31A8FF11700252B4D /* cwcom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977C11A8FF11700252B4D /* cwcom.cpp */; };
 		7F2A77571A646CCA005A6813 /* sounder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A77561A646CCA005A6813 /* sounder.png */; };
 		7F5C5A921A61F163001B6727 /* kob2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C5A911A61F163001B6727 /* kob2.png */; };
 		7F5C5AE81A62F688001B6727 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5AE71A62F688001B6727 /* ViewController.m */; };
@@ -67,6 +68,8 @@
 		7F2977B71A8FDF7700252B4D /* Bluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bluetooth.m; sourceTree = "<group>"; };
 		7F2977BD1A8FE90A00252B4D /* Tone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tone.m; sourceTree = "<group>"; };
 		7F2977BF1A8FE91000252B4D /* Tone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tone.h; sourceTree = "<group>"; };
+		7F2977C11A8FF11700252B4D /* cwcom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cwcom.cpp; sourceTree = "<group>"; };
+		7F2977C21A8FF11700252B4D /* cwcom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cwcom.h; sourceTree = "<group>"; };
 		7F2A77561A646CCA005A6813 /* sounder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sounder.png; sourceTree = "<group>"; };
 		7F5C5A911A61F163001B6727 /* kob2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kob2.png; sourceTree = "<group>"; };
 		7F5C5AE71A62F688001B6727 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 				7F2977B91A8FE32C00252B4D /* Bluetooth */,
 				7F1E352F1A5AE782008D519D /* Supporting Files */,
 				7FC525C71A5B3651005A89CA /* Networking */,
+				7F2977C41A8FF13B00252B4D /* CWCom Implementation */,
 				7FC525C81A5B366F005A89CA /* CWCom Protocol */,
 				7F2977C01A8FE91E00252B4D /* Tone */,
 			);
@@ -184,6 +188,15 @@
 				7F2977BF1A8FE91000252B4D /* Tone.h */,
 			);
 			name = Tone;
+			sourceTree = "<group>";
+		};
+		7F2977C41A8FF13B00252B4D /* CWCom Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				7F2977C11A8FF11700252B4D /* cwcom.cpp */,
+				7F2977C21A8FF11700252B4D /* cwcom.h */,
+			);
+			name = "CWCom Implementation";
 			sourceTree = "<group>";
 		};
 		7FC525C71A5B3651005A89CA /* Networking */ = {
@@ -332,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F2977C31A8FF11700252B4D /* cwcom.cpp in Sources */,
 				7F5C5AE81A62F688001B6727 /* ViewController.m in Sources */,
 				7F1E35351A5AE782008D519D /* AppDelegate.m in Sources */,
 				7F1E35381A5AE782008D519D /* Morse.xcdatamodeld in Sources */,

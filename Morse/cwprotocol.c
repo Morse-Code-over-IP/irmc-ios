@@ -43,6 +43,7 @@ int prepare_tx (struct data_packet_format *tx_packet, char *id)
 }
 
 
+
 /* portable time, as listed in https://gist.github.com/jbenet/1087739  */
 void current_utc_time(struct timespec *ts) {
     clock_serv_t cclock;
@@ -65,3 +66,7 @@ long fastclock(void)
     r = r + t.tv_nsec / 1000000;
     return r;
 }
+
+
+
+

@@ -45,7 +45,6 @@ struct data_packet_format{
 // Define the packets used
 #define DEFAULT_CHANNEL 103
 
-
 int prepare_id (struct data_packet_format *id_packet, char *id);
 int prepare_tx (struct data_packet_format *tx_packet, char *id);
 void current_utc_time(struct timespec *ts);

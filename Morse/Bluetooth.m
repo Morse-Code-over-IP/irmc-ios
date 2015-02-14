@@ -171,7 +171,6 @@
 
 @interface BTService()
 @property (strong, nonatomic) CBPeripheral *peripheral;
-@property (strong, nonatomic) CBCharacteristic *positionCharacteristic;
 @property (strong, nonatomic) CBCharacteristic *rxCharacteristic;
 @property (strong, nonatomic) CBCharacteristic *txCharacteristic;
 @end
@@ -256,7 +255,6 @@
         NSLog(@"chk charac");
         if ([[characteristic UUID] isEqual:RX_CHARACTERISTIC_UUID]) {
             NSLog(@"Rx characteristic found");
-            self.positionCharacteristic = characteristic;
             self.rxCharacteristic = characteristic;
             [self.peripheral setNotifyValue:TRUE forCharacteristic:characteristic];
             // Send notification that Bluetooth is connected and all required characteristics are discovered
