@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Bluetooth.h"
 
+//#define DEBUG_BT
 
 @interface BTDiscovery ()
 @property (strong, nonatomic) CBCentralManager *centralManager;
@@ -301,7 +302,11 @@
         NSData *data = characteristic.value;
         //NSString s = NSString(bytes: &data, length: dataLength, encoding: NSUTF8StringEncoding)
         //value here.
+#ifdef DEBUG_BT
         NSLog(@"there is data");
+#endif
+        NSDictionary *stuff = @{@"data": @"m"};
+        [[NSNotificationCenter defaultCenter] postNotificationName:THERE_IS_DATA object:self userInfo:stuff];
     }
 }
 

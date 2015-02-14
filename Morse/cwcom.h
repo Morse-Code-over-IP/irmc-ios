@@ -14,7 +14,7 @@
 #define PORT 7890
 
 #define TX_WAIT  5000
-#define TX_TIMEOUT 240.0
+#define TX_TIMEOUT 240.0 // msec
 
 #define KEEPALIVE_CYCLE 100 //msec
 #define NUMSEND 5

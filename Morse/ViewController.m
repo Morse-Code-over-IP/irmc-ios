@@ -359,8 +359,10 @@ identifyclient
     NSLog(@"Starting bluetooth");
     // Watch Bluetooth connection
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btconnectionChanged:) name:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btdata:) name:THERE_IS_DATA object:nil];
     // Start the Bluetooth discovery process
     [BTDiscovery sharedInstance];
+
 
     
     enter_id.delegate = self;
@@ -381,6 +383,8 @@ identifyclient
     // Connection status changed. Indicate on GUI.
     // some stuff could be done here...
 }
+
+
 
 -(void)displaywebstuff
 {
@@ -568,7 +572,31 @@ withFilterContext:(id)filterContext
 }
 
 
+- (void)btdata:(NSNotification *)notification {
+    // events from serial port may be within 0.03 seconds. everything loger will be no signal.
+    //key_press_t1 = fastclock();
+    
+    [timer2 invalidate];
+    timer2 = [NSTimer scheduledTimerWithTimeInterval: TX_TIMEOUT/100 target: self selector: @selector(stopsending:) userInfo: nil repeats: NO];
+    timer2 = [NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(stopsending:) userInfo: nil repeats: NO];
 
+    if (sounder == true)
+        [self play_click];
+    else
+        AudioOutputUnitStart(toneUnit);
+    
+   // NSLog(@"jepp");
+}
+
+-(void)stopsending:(NSTimer*)t
+{
+    NSLog(@"end data");
+
+    if (sounder == true)
+        [self play_clack];
+    else
+        AudioOutputUnitStop(toneUnit);
+}
 
 //FIXME: This method can go into cwcom. - modify for buttonup
 -(void)buttonIsDown
@@ -600,7 +628,6 @@ withFilterContext:(id)filterContext
     else
         AudioOutputUnitStop(toneUnit);
 
-    
     int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
     if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
     if (tx_data_packet.n == SIZE_CODE) NSLog(@"warning: packet is full");

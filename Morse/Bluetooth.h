@@ -28,6 +28,8 @@
 
 /* Notifications */
 static NSString* const RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION = @"kBLEServiceChangedStatusNotification";
+static NSString* const THERE_IS_DATA = @"Thereisdata";
+
 
 
 @interface BTService : NSObject <CBPeripheralDelegate>
