@@ -25,6 +25,8 @@
 		7F2977BE1A8FE90A00252B4D /* Tone.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977BD1A8FE90A00252B4D /* Tone.m */; };
 		7F2977C61A8FF49000252B4D /* cwcom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977C51A8FF49000252B4D /* cwcom.m */; };
 		7F2A77571A646CCA005A6813 /* sounder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A77561A646CCA005A6813 /* sounder.png */; };
+		7F3AC9261A90F9CC00D24205 /* tut.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7F3AC9251A90F9CC00D24205 /* tut.mp3 */; };
+		7F3AC9281A90FB0900D24205 /* tut.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7F3AC9271A90FB0900D24205 /* tut.wav */; };
 		7F5C5A921A61F163001B6727 /* kob2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C5A911A61F163001B6727 /* kob2.png */; };
 		7F5C5AE81A62F688001B6727 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5AE71A62F688001B6727 /* ViewController.m */; };
 		7F5C5AEA1A64641D001B6727 /* pole.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C5AE91A64641D001B6727 /* pole.png */; };
@@ -71,6 +73,8 @@
 		7F2977C51A8FF49000252B4D /* cwcom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cwcom.m; sourceTree = "<group>"; };
 		7F2977C71A8FF4A000252B4D /* cwcom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cwcom.h; sourceTree = "<group>"; };
 		7F2A77561A646CCA005A6813 /* sounder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sounder.png; sourceTree = "<group>"; };
+		7F3AC9251A90F9CC00D24205 /* tut.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tut.mp3; sourceTree = "<group>"; };
+		7F3AC9271A90FB0900D24205 /* tut.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tut.wav; sourceTree = "<group>"; };
 		7F5C5A911A61F163001B6727 /* kob2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kob2.png; sourceTree = "<group>"; };
 		7F5C5AE71A62F688001B6727 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7F5C5AE91A64641D001B6727 /* pole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pole.png; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 				7F0E9E2B1A61D19900CDE9C2 /* kob1.png */,
 				7F2A77561A646CCA005A6813 /* sounder.png */,
 				7F5C5AE91A64641D001B6727 /* pole.png */,
+				7F3AC9251A90F9CC00D24205 /* tut.mp3 */,
+				7F3AC9271A90FB0900D24205 /* tut.wav */,
 				7F0093511A5C9B1A00FA34F4 /* clack48.wav */,
 				7F0093521A5C9B1A00FA34F4 /* click48.wav */,
 				7F1E35301A5AE782008D519D /* Info.plist */,
@@ -291,10 +297,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F3AC9281A90FB0900D24205 /* tut.wav in Resources */,
 				7F0E9E2E1A61D1A700CDE9C2 /* kob.xcassets in Resources */,
 				7F0E9E2A1A61D16900CDE9C2 /* kob.png in Resources */,
 				7F0E9E261A61D0B600CDE9C2 /* key.xcassets in Resources */,
 				7F1E353E1A5AE782008D519D /* Main.storyboard in Resources */,
+				7F3AC9261A90F9CC00D24205 /* tut.mp3 in Resources */,
 				7F1E35431A5AE782008D519D /* LaunchScreen.xib in Resources */,
 				7FA557D31A5F227C00240D74 /* key.png in Resources */,
 				7F0E9E2C1A61D19900CDE9C2 /* kob1.png in Resources */,

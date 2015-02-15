@@ -461,6 +461,16 @@ identifyclient
 }
 
 // FIXME: can go to sound
+- (void)play_tut
+{
+    NSLog(@"play tut");
+    SystemSoundID completeSound;
+    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"tut" withExtension:@"wav"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
+    AudioServicesPlaySystemSound (completeSound);
+}
+
+// FIXME: can go to sound
 - (void)play_clack
 {
     NSLog(@"play clack");
@@ -587,12 +597,17 @@ withFilterContext:(id)filterContext
     
     if ([ss isEqualToString:@"v"]) {
         key_press_t1 = fastclock();
-
+        [self play_tut];
+/*
     if (sounder == true)
         [self play_click];
     else
         AudioOutputUnitStart(toneUnit);
+        
+        */
+        
         return;
+        
         tx_timeout = 0;
         int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
         if (timing > TX_WAIT) timing = TX_WAIT; // limit to timeout
@@ -609,12 +624,12 @@ withFilterContext:(id)filterContext
     {
         
         key_release_t1 = fastclock();
-
+/*
         if (sounder == true)
             [self play_clack];
         else
             AudioOutputUnitStop(toneUnit);
-        
+        */
         return;
         int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
         if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
