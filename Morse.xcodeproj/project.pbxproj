@@ -21,16 +21,11 @@
 		7F1E353E1A5AE782008D519D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F1E353C1A5AE782008D519D /* Main.storyboard */; };
 		7F1E35431A5AE782008D519D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F1E35411A5AE782008D519D /* LaunchScreen.xib */; };
 		7F1E354F1A5AE782008D519D /* MorseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E354E1A5AE782008D519D /* MorseTests.m */; };
+		7F2977B81A8FDF7700252B4D /* Bluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977B71A8FDF7700252B4D /* Bluetooth.m */; };
+		7F2977BE1A8FE90A00252B4D /* Tone.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977BD1A8FE90A00252B4D /* Tone.m */; };
+		7F2977C61A8FF49000252B4D /* cwcom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977C51A8FF49000252B4D /* cwcom.m */; };
 		7F2A77571A646CCA005A6813 /* sounder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A77561A646CCA005A6813 /* sounder.png */; };
 		7F5C5A921A61F163001B6727 /* kob2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C5A911A61F163001B6727 /* kob2.png */; };
-		7F5C5ABF1A62F01C001B6727 /* rad2fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5ABC1A62F01C001B6727 /* rad2fft.c */; };
-		7F5C5AC01A62F01C001B6727 /* SpectrumAnalysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5ABE1A62F01C001B6727 /* SpectrumAnalysis.cpp */; };
-		7F5C5AC41A62F077001B6727 /* FFTBufferManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5AC31A62F077001B6727 /* FFTBufferManager.cpp */; };
-		7F5C5AD51A62F241001B6727 /* aurio_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5AD41A62F241001B6727 /* aurio_helper.cpp */; };
-		7F5C5ADF1A62F298001B6727 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5ADB1A62F298001B6727 /* CAStreamBasicDescription.cpp */; };
-		7F5C5AE01A62F298001B6727 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5ADC1A62F298001B6727 /* CAXException.cpp */; };
-		7F5C5AE11A62F298001B6727 /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5ADD1A62F298001B6727 /* CADebugPrintf.cpp */; };
-		7F5C5AE21A62F298001B6727 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5ADE1A62F298001B6727 /* CADebugMacros.cpp */; };
 		7F5C5AE81A62F688001B6727 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5C5AE71A62F688001B6727 /* ViewController.m */; };
 		7F5C5AEA1A64641D001B6727 /* pole.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5C5AE91A64641D001B6727 /* pole.png */; };
 		7FA557D31A5F227C00240D74 /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA557D21A5F227C00240D74 /* key.png */; };
@@ -69,26 +64,14 @@
 		7F1E35481A5AE782008D519D /* MorseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MorseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1E354D1A5AE782008D519D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F1E354E1A5AE782008D519D /* MorseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MorseTests.m; sourceTree = "<group>"; };
+		7F2977B61A8FDF4500252B4D /* Bluetooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bluetooth.h; sourceTree = "<group>"; };
+		7F2977B71A8FDF7700252B4D /* Bluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bluetooth.m; sourceTree = "<group>"; };
+		7F2977BD1A8FE90A00252B4D /* Tone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tone.m; sourceTree = "<group>"; };
+		7F2977BF1A8FE91000252B4D /* Tone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tone.h; sourceTree = "<group>"; };
+		7F2977C51A8FF49000252B4D /* cwcom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cwcom.m; sourceTree = "<group>"; };
+		7F2977C71A8FF4A000252B4D /* cwcom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cwcom.h; sourceTree = "<group>"; };
 		7F2A77561A646CCA005A6813 /* sounder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sounder.png; sourceTree = "<group>"; };
 		7F5C5A911A61F163001B6727 /* kob2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kob2.png; sourceTree = "<group>"; };
-		7F5C5ABB1A62F01C001B6727 /* rad2fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rad2fft.h; sourceTree = "<group>"; };
-		7F5C5ABC1A62F01C001B6727 /* rad2fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rad2fft.c; sourceTree = "<group>"; };
-		7F5C5ABD1A62F01C001B6727 /* SpectrumAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumAnalysis.h; sourceTree = "<group>"; };
-		7F5C5ABE1A62F01C001B6727 /* SpectrumAnalysis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpectrumAnalysis.cpp; sourceTree = "<group>"; };
-		7F5C5AC21A62F077001B6727 /* FFTBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTBufferManager.h; sourceTree = "<group>"; };
-		7F5C5AC31A62F077001B6727 /* FFTBufferManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTBufferManager.cpp; sourceTree = "<group>"; };
-		7F5C5AD31A62F241001B6727 /* aurio_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aurio_helper.h; sourceTree = "<group>"; };
-		7F5C5AD41A62F241001B6727 /* aurio_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aurio_helper.cpp; sourceTree = "<group>"; };
-		7F5C5AD61A62F298001B6727 /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
-		7F5C5AD71A62F298001B6727 /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
-		7F5C5AD81A62F298001B6727 /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
-		7F5C5AD91A62F298001B6727 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
-		7F5C5ADA1A62F298001B6727 /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
-		7F5C5ADB1A62F298001B6727 /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
-		7F5C5ADC1A62F298001B6727 /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
-		7F5C5ADD1A62F298001B6727 /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
-		7F5C5ADE1A62F298001B6727 /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
-		7F5C5AE31A62F333001B6727 /* aurioTouch_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aurioTouch_Prefix.pch; sourceTree = "<group>"; };
 		7F5C5AE71A62F688001B6727 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7F5C5AE91A64641D001B6727 /* pole.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pole.png; sourceTree = "<group>"; };
 		7FA557D21A5F227C00240D74 /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
@@ -117,7 +100,6 @@
 		7F1E35231A5AE782008D519D = {
 			isa = PBXGroup;
 			children = (
-				7F5C5AE41A62F586001B6727 /* Classes */,
 				7F1E352E1A5AE782008D519D /* Morse */,
 				7F1E354B1A5AE782008D519D /* MorseTests */,
 				7F1E352D1A5AE782008D519D /* Products */,
@@ -143,10 +125,11 @@
 				7F1E35361A5AE782008D519D /* Morse.xcdatamodeld */,
 				7F1E353C1A5AE782008D519D /* Main.storyboard */,
 				7F1E35411A5AE782008D519D /* LaunchScreen.xib */,
-				7FF246A21A69BE0100A02564 /* External Key - not integrated yet */,
+				7F2977B91A8FE32C00252B4D /* Bluetooth */,
 				7F1E352F1A5AE782008D519D /* Supporting Files */,
 				7FC525C71A5B3651005A89CA /* Networking */,
 				7FC525C81A5B366F005A89CA /* CWCom Protocol */,
+				7F2977C01A8FE91E00252B4D /* Tone */,
 			);
 			path = Morse;
 			sourceTree = "<group>";
@@ -188,44 +171,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7F5C5AC11A62F020001B6727 /* fft */ = {
+		7F2977B91A8FE32C00252B4D /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				7F5C5ABB1A62F01C001B6727 /* rad2fft.h */,
-				7F5C5ABC1A62F01C001B6727 /* rad2fft.c */,
-				7F5C5ABD1A62F01C001B6727 /* SpectrumAnalysis.h */,
-				7F5C5ABE1A62F01C001B6727 /* SpectrumAnalysis.cpp */,
+				7F2977B61A8FDF4500252B4D /* Bluetooth.h */,
+				7F2977B71A8FDF7700252B4D /* Bluetooth.m */,
 			);
-			name = fft;
+			name = Bluetooth;
 			sourceTree = "<group>";
 		};
-		7F5C5ACF1A62F0B5001B6727 /* iPublicUtility */ = {
+		7F2977C01A8FE91E00252B4D /* Tone */ = {
 			isa = PBXGroup;
 			children = (
-				7F5C5AE31A62F333001B6727 /* aurioTouch_Prefix.pch */,
-				7F5C5AD61A62F298001B6727 /* CAMath.h */,
-				7F5C5AD71A62F298001B6727 /* CADebugPrintf.h */,
-				7F5C5AD81A62F298001B6727 /* CADebugMacros.h */,
-				7F5C5AD91A62F298001B6727 /* CAStreamBasicDescription.h */,
-				7F5C5ADA1A62F298001B6727 /* CAXException.h */,
-				7F5C5ADB1A62F298001B6727 /* CAStreamBasicDescription.cpp */,
-				7F5C5ADC1A62F298001B6727 /* CAXException.cpp */,
-				7F5C5ADD1A62F298001B6727 /* CADebugPrintf.cpp */,
-				7F5C5ADE1A62F298001B6727 /* CADebugMacros.cpp */,
-				7F5C5AD31A62F241001B6727 /* aurio_helper.h */,
-				7F5C5AD41A62F241001B6727 /* aurio_helper.cpp */,
+				7F2977BD1A8FE90A00252B4D /* Tone.m */,
+				7F2977BF1A8FE91000252B4D /* Tone.h */,
 			);
-			name = iPublicUtility;
-			sourceTree = "<group>";
-		};
-		7F5C5AE41A62F586001B6727 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				7F5C5AC21A62F077001B6727 /* FFTBufferManager.h */,
-				7F5C5AC31A62F077001B6727 /* FFTBufferManager.cpp */,
-			);
-			name = Classes;
-			path = Morse;
+			name = Tone;
 			sourceTree = "<group>";
 		};
 		7FC525C71A5B3651005A89CA /* Networking */ = {
@@ -240,19 +201,12 @@
 		7FC525C81A5B366F005A89CA /* CWCom Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				7F2977C51A8FF49000252B4D /* cwcom.m */,
+				7F2977C71A8FF4A000252B4D /* cwcom.h */,
 				7F162FA81A5B0E2900945D4C /* cwprotocol.h */,
 				7F162FA91A5B0E4600945D4C /* cwprotocol.c */,
 			);
 			name = "CWCom Protocol";
-			sourceTree = "<group>";
-		};
-		7FF246A21A69BE0100A02564 /* External Key - not integrated yet */ = {
-			isa = PBXGroup;
-			children = (
-				7F5C5ACF1A62F0B5001B6727 /* iPublicUtility */,
-				7F5C5AC11A62F020001B6727 /* fft */,
-			);
-			name = "External Key - not integrated yet";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,19 +338,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F5C5AE81A62F688001B6727 /* ViewController.m in Sources */,
-				7F5C5AE01A62F298001B6727 /* CAXException.cpp in Sources */,
 				7F1E35351A5AE782008D519D /* AppDelegate.m in Sources */,
 				7F1E35381A5AE782008D519D /* Morse.xcdatamodeld in Sources */,
 				7FC525C61A5B3150005A89CA /* GCDAsyncUdpSocket.m in Sources */,
-				7F5C5ADF1A62F298001B6727 /* CAStreamBasicDescription.cpp in Sources */,
-				7F5C5AD51A62F241001B6727 /* aurio_helper.cpp in Sources */,
-				7F5C5AC01A62F01C001B6727 /* SpectrumAnalysis.cpp in Sources */,
-				7F5C5AC41A62F077001B6727 /* FFTBufferManager.cpp in Sources */,
 				7F162FAA1A5B0E4600945D4C /* cwprotocol.c in Sources */,
-				7F5C5AE11A62F298001B6727 /* CADebugPrintf.cpp in Sources */,
-				7F5C5ABF1A62F01C001B6727 /* rad2fft.c in Sources */,
-				7F5C5AE21A62F298001B6727 /* CADebugMacros.cpp in Sources */,
+				7F2977B81A8FDF7700252B4D /* Bluetooth.m in Sources */,
+				7F2977C61A8FF49000252B4D /* cwcom.m in Sources */,
 				7F1E35321A5AE782008D519D /* main.m in Sources */,
+				7F2977BE1A8FE90A00252B4D /* Tone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

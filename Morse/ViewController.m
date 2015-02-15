@@ -13,75 +13,28 @@
 #import <netinet/in.h>
 #import <netinet6/in6.h>
 #import <arpa/inet.h>
-#include <mach/clock.h>
-#include <mach/mach.h>
+
 
 #include "cwprotocol.h"
-
-//#import "FFTBufferManager.h"
-
-#define SERVERNAME_MORSE "morsecode.dyndns.org"
-#define SERVERNAME_SOUNDER "mtc-kob.dyndns.org" 
-#define PORT 7890
+#include "cwcom.h"
+#include "Bluetooth.h"
+#include "Tone.h"
 
 
 //#undef DEBUG
 //#define DEBUG_NET
+//#define DEBUG_TIMER
 //#define DEBUG_TX
-//#define EXT_KEY
 #define SCROLLVIEWLOG
 
-OSStatus RenderTone(
-                    void *inRefCon,
-                    AudioUnitRenderActionFlags 	*ioActionFlags,
-                    const AudioTimeStamp 		*inTimeStamp,
-                    UInt32 						inBusNumber,
-                    UInt32 						inNumberFrames,
-                    AudioBufferList 			*ioData)
-
-{
-    // Fixed amplitude is good enough for our purposes
-    const double amplitude = 0.25;
-    
-    // Get the tone parameters out of the view controller
-    ViewController *vviewController =
-    (__bridge ViewController *)inRefCon;
-    double theta = vviewController->theta;
-    double theta_increment = 2.0 * M_PI * vviewController->frequency / vviewController->sampleRate;
-    
-    // This is a mono tone generator so we only need the first buffer
-    const int channel = 0;
-    Float32 *buffer = (Float32 *)ioData->mBuffers[channel].mData;
-    
-    // Generate the samples
-    for (UInt32 frame = 0; frame < inNumberFrames; frame++)
-    {
-        buffer[frame] = sin(theta) * amplitude;
-        
-        theta += theta_increment;
-        if (theta > 2.0 * M_PI)
-        {
-            theta -= 2.0 * M_PI;
-        }
-    }
-    
-    // Store the theta back in the view controller
-    vviewController->theta = theta;
-    
-    return noErr;
-}
 
 void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
-    ViewController *vviewController =
-    (__bridge ViewController *)inClientData;
-    
+    ViewController *vviewController = (__bridge ViewController *)inClientData;
     [vviewController stop];
 }
 
 @interface ViewController ()
-
-
 
 @end
 
@@ -146,7 +99,7 @@ identifyclient
     [self identifyclient];
     
     // Start Keepalive timer
-    myTimer = [NSTimer scheduledTimerWithTimeInterval: KEEPALIVE_CYCLE/100 target: self selector: @selector(sendkeepalive:) userInfo: nil repeats: YES];
+    myTimer = [NSTimer scheduledTimerWithTimeInterval: KEEPALIVE_CYCLE/1000 target: self selector: @selector(sendkeepalive:) userInfo: nil repeats: YES];
     
     connect = CONNECTED;
 }
@@ -199,7 +152,7 @@ identifyclient
     const int four_bytes_per_float = 4;
     const int eight_bits_per_byte = 8;
     AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = sampleRate;
+    streamFormat.mSampleRate = SAMPLERATE;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
     streamFormat.mFormatFlags =
     kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
@@ -220,9 +173,6 @@ identifyclient
 - (void)inittone
 {
     NSLog(@"Starting tone Unit");
-
-    sampleRate = 44100;
-    frequency = 800;
 
     [self createToneUnit];
     
@@ -283,6 +233,7 @@ identifyclient
     enter_channel.placeholder = @"33";
     
     sounder = false;
+    
 }
 
 // This method is called once we click inside the textField
@@ -404,9 +355,14 @@ identifyclient
     [self initCWvars];
     [self inittone];
     [self displaywebstuff];
-#ifdef EXT_KEY
-    [self beep:(1000)];
-#endif
+
+    // Starting bluetooth for external key
+    NSLog(@"Starting bluetooth");
+    // Watch Bluetooth connection
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btconnectionChanged:) name:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btdata:) name:THERE_IS_DATA object:nil];
+    // Start the Bluetooth discovery process
+    [BTDiscovery sharedInstance];
     
     enter_id.delegate = self;
     enter_channel.delegate = self;
@@ -421,6 +377,13 @@ identifyclient
 
     txt_version.text = [NSString stringWithFormat:@"Version: %@ (%@)", appVersionString, appBuildString];
 }
+
+- (void)btconnectionChanged:(NSNotification *)notification {
+    // Connection status changed. Indicate on GUI.
+    // some stuff could be done here...
+    
+}
+
 
 
 -(void)displaywebstuff
@@ -468,7 +431,7 @@ identifyclient
 #endif
 }
 
-
+// FIXME: can go to sound
 -(BOOL) playSoundFXnamed: (NSString*) vSFXName Loop: (BOOL) vLoop
 {
     NSError *error;
@@ -497,7 +460,7 @@ identifyclient
     return success;
 }
 
-
+// FIXME: can go to sound
 - (void)play_clack
 {
     NSLog(@"play clack");
@@ -506,6 +469,7 @@ identifyclient
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
     AudioServicesPlaySystemSound (completeSound);
 }
+// FIXME: can go to sound
 - (void)play_click
 {
     NSLog(@"play click");
@@ -516,8 +480,7 @@ identifyclient
 }
 
 //FIXME: This method can go into cwcom. - modify for (a) recv (b) process
-- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
-      fromAddress:(NSData *)address
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address
 withFilterContext:(id)filterContext
 {
     int i;
@@ -599,33 +562,71 @@ withFilterContext:(id)filterContext
 - (void)viewDidAppear:(BOOL)animated {
 }
 
+- (void)dealloc {
+    //FIXME: NAME RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:THERE_IS_DATA object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:nil];
+
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
 }
 
-//FIXME: This method can go into cwcom.
-/* portable time, as listed in https://gist.github.com/jbenet/1087739  */
-void current_utc_time(struct timespec *ts) {
-    clock_serv_t cclock;
-    mach_timespec_t mts;
-    host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
-    clock_get_time(cclock, &mts);
-    mach_port_deallocate(mach_task_self(), cclock);
-    ts->tv_sec = mts.tv_sec;
-    ts->tv_nsec = mts.tv_nsec;
-}
-//FIXME: This method can go into cwcom.
-/* a better clock() in milliseconds */
-long
-fastclock(void)
-{
-    struct timespec t;
-    long r;
+
+- (void)btdata:(NSNotification *)notification {
+    /*
+    NSDictionary *connectionDetails = @{@"isConnected": @(isBluetoothConnected)};
+    +  [[NSNotificationCenter defaultCenter] postNotificationName:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:self userInfo:connectionDetails];
+    +}
+*/
+//    +  BOOL isConnected = [(NSNumber *) (notification.userInfo)[@"isConnected"] boolValue];
+
+    NSString* ss = (notification.userInfo)[@"data"];
+   // NSLog(ss);
     
-    current_utc_time (&t);
-    r = t.tv_sec * 1000;
-    r = r + t.tv_nsec / 1000000;
-    return r;
+    if ([ss isEqualToString:@"v"]) {
+        key_press_t1 = fastclock();
+
+    if (sounder == true)
+        [self play_click];
+    else
+        AudioOutputUnitStart(toneUnit);
+        
+        tx_timeout = 0;
+        int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
+        if (timing > TX_WAIT) timing = TX_WAIT; // limit to timeout
+        tx_data_packet.n++;
+        tx_data_packet.code[tx_data_packet.n - 1] = timing;
+#ifdef DEBUG_TX
+        NSLog(@"timing: %d", timing);
+#endif
+        [self message:1];
+        
+        
+    }
+    if ([ss isEqualToString:@"k"])
+    {
+        
+        key_release_t1 = fastclock();
+
+        if (sounder == true)
+            [self play_clack];
+        else
+            AudioOutputUnitStop(toneUnit);
+        
+        
+        int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
+        if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
+        if (tx_data_packet.n == SIZE_CODE) NSLog(@"warning: packet is full");
+        tx_data_packet.n++;
+        tx_data_packet.code[tx_data_packet.n - 1] = timing;
+#ifdef DEBUG_TX
+        NSLog(@"timing: %d", timing);
+#endif
+        
+        [self send_data];
+    }
 }
 
 //FIXME: This method can go into cwcom. - modify for buttonup
@@ -658,7 +659,6 @@ fastclock(void)
     else
         AudioOutputUnitStop(toneUnit);
 
-    
     int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
     if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
     if (tx_data_packet.n == SIZE_CODE) NSLog(@"warning: packet is full");
@@ -668,23 +668,7 @@ fastclock(void)
     NSLog(@"timing: %d", timing);
 #endif
 
-    
-    //NSLog(@"mark: %i\n", tx_data_packet.code[tx_data_packet.n -1]);
-    /* TBD = TIMEOUT FOR keypress maximal 5 seconds
-    while(1){
-        ioctl(fd_serial, TIOCMGET, &serial_status);
-        if(serial_status & TIOCM_DSR) break;
-        tx_timeout = fastclock() - key_release_t1;
-        if(tx_timeout > TX_TIMEOUT) return;
-    }
-    key_press_t1 = fastclock();
-    if(tx_data_packet.n == SIZE_CODE) {
-        NSLog(@"irmc: warning packet is full.\n");
-        return;
-    }
-*/
     [self send_data];
-    //[self send_tx_packet]; // FIXME: why run the code below, if we can send right now?
 }
 
 //FIXME: This method can go into cwcom.
@@ -763,7 +747,7 @@ fastclock(void)
 
 -(void) sendkeepalive:(NSTimer*)t
 {
-#ifdef DEBUG_NET
+#ifdef DEBUG_TIMER
     NSLog(@"Keepalive");
 #endif
     [self identifyclient];
@@ -776,23 +760,6 @@ fastclock(void)
 
 
  /*
-TODO: Bluetooth serial support? 
-  http://www.adafruit.com/products/1697 20$, appstore possible
-alternative to this: more information on arduino: https://github.com/michaelkroll/BLE-Shield diy shield
-  http://learn.adafruit.com/downloads/pdf/getting-started-with-the-nrf8001-bluefruit-le-breakout.pdf
-  http://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF8001
-  
-  SCK
-  MISO
-  MOSI
-  REQ
-  RDY
-  ACT
-  RST
-  3Vo
-  GND
-  VIN
-  
   
   http://kob.sdf.org/morsekob/interface.htm#portpins
   RS232     DB9     Function    
@@ -803,26 +770,5 @@ alternative to this: more information on arduino: https://github.com/michaelkrol
   SG        5       Sounder ground
  
  */
-
-
-
-
-#ifdef EXT_KEY
-/*
- 1(Tip) - Key (Ground)
- 2 - Ear (Contact)
- 3 - Ear (Ground)
- 4(Ground) - R2(46,6k ge-br?-sw-rt-br) - Key 1
- 4(Ground) - R3(22k br-rt-sw-rt-rt) - Key 2
- 4(Ground) - R1(1k br-sw-sw-br-br) - 3
- 
- (1) left earphone (tip), (2) right earphone (ring), (3) com- mon/ground (ring), and (4) microphone (sleeve)
- 
- 
- https://web.eecs.umich.edu/~prabal/pubs/papers/kuo10hijack.pdf
- https://code.google.com/p/hijack-main/
- 
- */
-#endif
 
 @end
