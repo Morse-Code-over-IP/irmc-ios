@@ -9,6 +9,8 @@
 
 #import <UIKit/UIKit.h>
 #import <AudioUnit/AudioUnit.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 #include "cwprotocol.h"
 #include "GCDAsyncUdpSocket.h"
 
@@ -28,6 +30,8 @@
     struct data_packet_format id_packet;
     struct data_packet_format rx_data_packet;
     struct data_packet_format tx_data_packet;
+    
+    AVAudioPlayer *audioPlayer;
     
     // server connecting
     NSString *host;

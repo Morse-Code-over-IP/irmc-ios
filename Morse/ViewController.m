@@ -27,6 +27,7 @@
 //#define DEBUG_TX
 #define SCROLLVIEWLOG
 
+//#define TUTI // AV player for sound
 
 void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
@@ -193,6 +194,8 @@ identifyclient
 
 - (void)beep:(double)duration_ms
 {
+
+    
     if (!toneUnit) [self inittone];
 
     if (sounder == true)
@@ -203,6 +206,12 @@ identifyclient
     }
     else
     {
+#ifdef TUTI
+        [audioPlayer play];
+        usleep(abs(duration_ms)*1000.);
+        [audioPlayer pause];
+        return;
+#endif
         OSErr err = AudioOutputUnitStart(toneUnit);
         NSAssert1(err == noErr, @"Error starting unit: %hd", err);
         usleep(abs(duration_ms)*1000.);
@@ -364,6 +373,10 @@ identifyclient
     // Start the Bluetooth discovery process
     [BTDiscovery sharedInstance];
     
+#ifdef TUTI
+    [self initsound]; // gz now
+#endif
+    
     enter_id.delegate = self;
     enter_channel.delegate = self;
 
@@ -432,42 +445,17 @@ identifyclient
 }
 
 // FIXME: can go to sound
--(BOOL) playSoundFXnamed: (NSString*) vSFXName Loop: (BOOL) vLoop
+-(void)initsound
 {
     NSError *error;
     NSBundle* bundle = [NSBundle mainBundle];
     NSString* bundleDirectory = (NSString*)[bundle bundlePath];
-    NSURL *url = [NSURL fileURLWithPath:[bundleDirectory stringByAppendingPathComponent:vSFXName]];
-    AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    
-    if(vLoop)
-        audioPlayer.numberOfLoops = -1;
-    else
-        audioPlayer.numberOfLoops = 0;
-    
-    BOOL success = YES;
-    
-    if (audioPlayer == nil)
-    {
-        success = NO;
-        NSLog(@"no");
-    }
-    else
-    {
-        success = [audioPlayer play];
-        NSLog(@"yes");
-    }
-    return success;
-}
-
-// FIXME: can go to sound
-- (void)play_tut
-{
-    NSLog(@"play tut");
-    SystemSoundID completeSound;
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"tut" withExtension:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
-    AudioServicesPlaySystemSound (completeSound);
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioPath error:&error];
+    audioPlayer.numberOfLoops = -1;
+    [audioPlayer prepareToPlay];
+    //http://developer.limneos.net/?framework=AVFoundation.framework&header=AVPlayer.h
+ 
 }
 
 // FIXME: can go to sound
@@ -583,6 +571,8 @@ withFilterContext:(id)filterContext
 {
 }
 
+//#define BEEPI
+
 
 - (void)btdata:(NSNotification *)notification {
     /*
@@ -593,20 +583,20 @@ withFilterContext:(id)filterContext
 //    +  BOOL isConnected = [(NSNumber *) (notification.userInfo)[@"isConnected"] boolValue];
 
     NSString* ss = (notification.userInfo)[@"data"];
-   // NSLog(ss);
+    NSLog(ss);
     
     if ([ss isEqualToString:@"v"]) {
         key_press_t1 = fastclock();
-        [self play_tut];
-/*
+#ifdef TUTI
+        [audioPlayer play];
+#else
     if (sounder == true)
         [self play_click];
     else
         AudioOutputUnitStart(toneUnit);
+#endif
         
-        */
         
-        return;
         
         tx_timeout = 0;
         int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
@@ -624,13 +614,14 @@ withFilterContext:(id)filterContext
     {
         
         key_release_t1 = fastclock();
-/*
+#ifdef TUTI
+        [audioPlayer pause];
+#else
         if (sounder == true)
             [self play_clack];
         else
             AudioOutputUnitStop(toneUnit);
-        */
-        return;
+#endif
         int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
         if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
         if (tx_data_packet.n == SIZE_CODE) NSLog(@"warning: packet is full");
