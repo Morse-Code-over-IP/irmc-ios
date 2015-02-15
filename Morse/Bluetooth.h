@@ -38,8 +38,6 @@ static NSString* const THERE_IS_DATA = @"Thereisdata";
 - (void)reset;
 - (void)startDiscoveringServices;
 
-- (void)writePosition:(UInt8)position;
-
 @end
 
 

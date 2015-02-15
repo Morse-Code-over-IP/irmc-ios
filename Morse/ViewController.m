@@ -23,7 +23,7 @@
 
 //#undef DEBUG
 //#define DEBUG_NET
-#define DEBUG_TIMER
+//#define DEBUG_TIMER
 //#define DEBUG_TX
 #define SCROLLVIEWLOG
 
@@ -364,9 +364,6 @@ identifyclient
     // Start the Bluetooth discovery process
     [BTDiscovery sharedInstance];
     
-  //  timer2 = [NSTimer scheduledTimerWithTimeInterval: TX_CYCLE/1000 target: self selector: @selector(stopsending:) userInfo: nil repeats: YES];
-
-    
     enter_id.delegate = self;
     enter_channel.delegate = self;
 
@@ -384,6 +381,7 @@ identifyclient
 - (void)btconnectionChanged:(NSNotification *)notification {
     // Connection status changed. Indicate on GUI.
     // some stuff could be done here...
+    
 }
 
 
@@ -566,7 +564,9 @@ withFilterContext:(id)filterContext
 
 - (void)dealloc {
     //FIXME: NAME RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:THERE_IS_DATA object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:nil];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -575,31 +575,58 @@ withFilterContext:(id)filterContext
 
 
 - (void)btdata:(NSNotification *)notification {
-    // events from serial port may be within 0.03 seconds. everything loger will be no signal.
-    long kp1 = fastclock();
-    if (kp1 - key_press_t1 < 30.)
-        NSLog(@"same");
-    else
-        NSLog(@"other");
-    key_press_t1 = kp1;
-    //key_release_t1
+    /*
+    NSDictionary *connectionDetails = @{@"isConnected": @(isBluetoothConnected)};
+    +  [[NSNotificationCenter defaultCenter] postNotificationName:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:self userInfo:connectionDetails];
+    +}
+*/
+//    +  BOOL isConnected = [(NSNumber *) (notification.userInfo)[@"isConnected"] boolValue];
+
+    NSString* ss = (notification.userInfo)[@"data"];
+   // NSLog(ss);
+    
+    if ([ss isEqualToString:@"v"]) {
+        key_press_t1 = fastclock();
 
     if (sounder == true)
         [self play_click];
     else
         AudioOutputUnitStart(toneUnit);
-    
-   // NSLog(@"jepp");
-}
+        
+        tx_timeout = 0;
+        int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
+        if (timing > TX_WAIT) timing = TX_WAIT; // limit to timeout
+        tx_data_packet.n++;
+        tx_data_packet.code[tx_data_packet.n - 1] = timing;
+#ifdef DEBUG_TX
+        NSLog(@"timing: %d", timing);
+#endif
+        [self message:1];
+        
+        
+    }
+    if ([ss isEqualToString:@"k"])
+    {
+        
+        key_release_t1 = fastclock();
 
--(void)stopsending:(NSTimer*)t
-{
-    NSLog(@"end data");
-
-    if (sounder == true)
-        [self play_clack];
-    else
-        AudioOutputUnitStop(toneUnit);
+        if (sounder == true)
+            [self play_clack];
+        else
+            AudioOutputUnitStop(toneUnit);
+        
+        
+        int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
+        if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
+        if (tx_data_packet.n == SIZE_CODE) NSLog(@"warning: packet is full");
+        tx_data_packet.n++;
+        tx_data_packet.code[tx_data_packet.n - 1] = timing;
+#ifdef DEBUG_TX
+        NSLog(@"timing: %d", timing);
+#endif
+        
+        [self send_data];
+    }
 }
 
 //FIXME: This method can go into cwcom. - modify for buttonup
