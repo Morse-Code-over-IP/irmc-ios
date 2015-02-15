@@ -587,12 +587,12 @@ withFilterContext:(id)filterContext
     
     if ([ss isEqualToString:@"v"]) {
         key_press_t1 = fastclock();
-
+/* SIDETONE disabled due to latency issues
     if (sounder == true)
         [self play_click];
     else
         AudioOutputUnitStart(toneUnit);
-        
+        */
         tx_timeout = 0;
         int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
         if (timing > TX_WAIT) timing = TX_WAIT; // limit to timeout
@@ -609,12 +609,12 @@ withFilterContext:(id)filterContext
     {
         
         key_release_t1 = fastclock();
-
+/*
         if (sounder == true)
             [self play_clack];
         else
             AudioOutputUnitStop(toneUnit);
-        
+        */
         
         int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
         if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
@@ -624,7 +624,7 @@ withFilterContext:(id)filterContext
 #ifdef DEBUG_TX
         NSLog(@"timing: %d", timing);
 #endif
-        
+        //FIXME: we must be connected...
         [self send_data];
     }
 }
