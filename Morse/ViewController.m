@@ -592,7 +592,7 @@ withFilterContext:(id)filterContext
         [self play_click];
     else
         AudioOutputUnitStart(toneUnit);
-        
+        return;
         tx_timeout = 0;
         int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
         if (timing > TX_WAIT) timing = TX_WAIT; // limit to timeout
@@ -615,7 +615,7 @@ withFilterContext:(id)filterContext
         else
             AudioOutputUnitStop(toneUnit);
         
-        
+        return;
         int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
         if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
         if (tx_data_packet.n == SIZE_CODE) NSLog(@"warning: packet is full");

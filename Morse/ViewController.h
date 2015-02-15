@@ -23,7 +23,6 @@
 @public
     int fd_socket;
     NSTimer* myTimer;
-    NSTimer* timer2;
     struct command_packet_format connect_packet;
     struct command_packet_format disconnect_packet;
     struct data_packet_format id_packet;
@@ -79,7 +78,6 @@
 - (void)message:(int)msg;
 - (void)identifyclient;
 - (void)initCWvars;
-- (void)settimer;
 
 @end
 
