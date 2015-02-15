@@ -7,10 +7,10 @@ This is a prototype under development...
 An external interface with bluetooth low energy can be connected.
 https://github.com/8cH9azbsFifZ/ble-morse
 
-Version v0.2 of the current and the repo above will work together.
+Version v0.4 of the current and the repo above will work together.
 
-
-![Experimental Interface](https://raw.githubusercontent.com/8cH9azbsFifZ/ble-morse/master/img/hello_morse.jpg?raw=true "Experimental Interface")
+![Experimental Interface](/img/ext_interface?raw=true "Experimental Interface")
+![Screen](/img/screen.png?raw=true "Screen")
 
 Interface via audio
 ===================
