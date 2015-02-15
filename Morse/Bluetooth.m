@@ -300,10 +300,14 @@
     
     if (characteristic.value != nil) {
         NSData *data = characteristic.value;
-        //NSString s = NSString(bytes: &data, length: dataLength, encoding: NSUTF8StringEncoding)
+        int len = data.length;
+        
+        NSString* ss = [NSString stringWithUTF8String:[data bytes]];
+
         //value here.
 #ifdef DEBUG_BT
-        NSLog(@"there is data");
+        //NSLog(@"there is data");
+        NSLog(ss);
 #endif
         NSDictionary *stuff = @{@"data": @"m"};
         [[NSNotificationCenter defaultCenter] postNotificationName:THERE_IS_DATA object:self userInfo:stuff];

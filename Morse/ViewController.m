@@ -23,6 +23,7 @@
 
 //#undef DEBUG
 //#define DEBUG_NET
+#define DEBUG_TIMER
 //#define DEBUG_TX
 #define SCROLLVIEWLOG
 
@@ -98,7 +99,7 @@ identifyclient
     [self identifyclient];
     
     // Start Keepalive timer
-    myTimer = [NSTimer scheduledTimerWithTimeInterval: KEEPALIVE_CYCLE/100 target: self selector: @selector(sendkeepalive:) userInfo: nil repeats: YES];
+    myTimer = [NSTimer scheduledTimerWithTimeInterval: KEEPALIVE_CYCLE/1000 target: self selector: @selector(sendkeepalive:) userInfo: nil repeats: YES];
     
     connect = CONNECTED;
 }
@@ -362,7 +363,8 @@ identifyclient
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btdata:) name:THERE_IS_DATA object:nil];
     // Start the Bluetooth discovery process
     [BTDiscovery sharedInstance];
-
+    
+  //  timer2 = [NSTimer scheduledTimerWithTimeInterval: TX_CYCLE/1000 target: self selector: @selector(stopsending:) userInfo: nil repeats: YES];
 
     
     enter_id.delegate = self;
@@ -574,11 +576,13 @@ withFilterContext:(id)filterContext
 
 - (void)btdata:(NSNotification *)notification {
     // events from serial port may be within 0.03 seconds. everything loger will be no signal.
-    //key_press_t1 = fastclock();
-    
-    [timer2 invalidate];
-    timer2 = [NSTimer scheduledTimerWithTimeInterval: TX_TIMEOUT/100 target: self selector: @selector(stopsending:) userInfo: nil repeats: NO];
-    timer2 = [NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(stopsending:) userInfo: nil repeats: NO];
+    long kp1 = fastclock();
+    if (kp1 - key_press_t1 < 30.)
+        NSLog(@"same");
+    else
+        NSLog(@"other");
+    key_press_t1 = kp1;
+    //key_release_t1
 
     if (sounder == true)
         [self play_click];
@@ -716,7 +720,7 @@ withFilterContext:(id)filterContext
 
 -(void) sendkeepalive:(NSTimer*)t
 {
-#ifdef DEBUG_NET
+#ifdef DEBUG_TIMER
     NSLog(@"Keepalive");
 #endif
     [self identifyclient];

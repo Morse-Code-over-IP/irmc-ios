@@ -79,6 +79,7 @@
 - (void)message:(int)msg;
 - (void)identifyclient;
 - (void)initCWvars;
+- (void)settimer;
 
 @end
 

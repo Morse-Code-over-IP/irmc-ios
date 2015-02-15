@@ -14,9 +14,10 @@
 #define PORT 7890
 
 #define TX_WAIT  5000
-#define TX_TIMEOUT 240.0 // msec
+#define TX_TIMEOUT 240.0 // in msec
+#define TX_CYCLE 50 // in msec
 
-#define KEEPALIVE_CYCLE 100 //msec
+#define KEEPALIVE_CYCLE 1000 //in missileconds -> 100msec
 #define NUMSEND 5
 
 #define MAXDATASIZE 1024 // max number of bytes we can get at once
