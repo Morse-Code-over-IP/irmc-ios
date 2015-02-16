@@ -220,7 +220,7 @@ identifyclient
 
     // init id selector
     enter_id.placeholder = @"iOS/DG6FL, intl. Morse";
-    enter_channel.placeholder = @"33";
+    enter_channel.placeholder = @"1000";
     
     sounder = false;
     
@@ -298,8 +298,8 @@ identifyclient
    
     // Connect to server switch
     [sw_connect addTarget:self action:@selector(switchconnect) forControlEvents:UIControlEventValueChanged];
-    [sw_connect setOn:true];
-    [self connectMorse];
+    [sw_connect setOn:false];
+    //[self connectMorse];
     
     // initialize vars
     [self initCWvars];
