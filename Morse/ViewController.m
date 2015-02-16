@@ -26,7 +26,7 @@
 //#define DEBUG_TIMER
 //#define DEBUG_TX
 //#define SCROLLVIEWLOG
-#define NOSIDETONE
+//#define NOSIDETONE
 
 void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
@@ -298,7 +298,8 @@ identifyclient
    
     // Connect to server switch
     [sw_connect addTarget:self action:@selector(switchconnect) forControlEvents:UIControlEventValueChanged];
-    [sw_connect setOn:false];
+    [sw_connect setOn:true];
+    [self connectMorse];
     
     // initialize vars
     [self initCWvars];
