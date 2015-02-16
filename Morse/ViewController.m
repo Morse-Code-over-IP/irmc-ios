@@ -28,8 +28,6 @@
 //#define SCROLLVIEWLOG
 #define NOSIDETONE
 
-//#define TUTI // AV player for sound
-
 void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 {
     ViewController *vviewController = (__bridge ViewController *)inClientData;
@@ -195,29 +193,11 @@ identifyclient
 
 - (void)beep:(double)duration_ms
 {
-
-    
     if (!toneUnit) [self inittone];
-
-    if (sounder == true)
-    {
-        [self play_click];
-        usleep(abs(duration_ms)*1000.);
-        [self play_clack];
-    }
-    else
-    {
-#ifdef TUTI
-        [audioPlayer play];
-        usleep(abs(duration_ms)*1000.);
-        [audioPlayer pause];
-        return;
-#endif
         OSErr err = AudioOutputUnitStart(toneUnit);
         NSAssert1(err == noErr, @"Error starting unit: %hd", err);
         usleep(abs(duration_ms)*1000.);
         AudioOutputUnitStop(toneUnit);
-    }
 }
 
 //FIXME: This method can go into cwcom.
@@ -269,17 +249,6 @@ identifyclient
     return YES;
 }
 
-- (void)switchcircuit
-{
-    if (circuit == LATCHED)
-    {
-        [self unlatch];
-    }
-    else
-    {
-        [self latch];
-    }
-}
 
 -(void) switchconnect
 {
@@ -290,29 +259,6 @@ identifyclient
     else
     {
         [self connectMorse];
-    }
-}
-
--(void) switchsounder
-{
-    NSLog(@"switch sounder");
-    if (sounder == true)
-    {
-        sounder = false;
-        UIImage *image2 = [UIImage imageNamed:@"key.png"];
-        [mybutton setBackgroundImage:image2 forState:UIControlStateNormal];
-      //  [self disconnectMorse]; // FIXME: switch servers
-     //   host = @SERVERNAME_MORSE;
-      //  [self connectMorse];
-    }
-    else
-    {
-        sounder = true;
-        UIImage *image2 = [UIImage imageNamed:@"kob2.png"];
-        [mybutton setBackgroundImage:image2 forState:UIControlStateNormal];
-      //  [self disconnectMorse];
-      //  host = @SERVERNAME_SOUNDER;
-      //  [self connectMorse];
     }
 }
 
@@ -349,17 +295,10 @@ identifyclient
     [mybutton setBackgroundImage:image2 forState:UIControlStateNormal];
     [mybutton addTarget:self action:@selector(buttonIsDown) forControlEvents:UIControlEventTouchDown];
     [mybutton addTarget:self action:@selector(buttonWasReleased) forControlEvents:UIControlEventTouchUpInside];
-    
-    // (Un-)Latch text switch
-    [sw_circuit addTarget:self action:@selector(switchcircuit) forControlEvents:UIControlEventValueChanged];
-
+   
     // Connect to server switch
     [sw_connect addTarget:self action:@selector(switchconnect) forControlEvents:UIControlEventValueChanged];
     [sw_connect setOn:false];
-    
-    // sounder switch
-    [sw_sounder addTarget:self action:@selector(switchsounder) forControlEvents:UIControlEventValueChanged];
-    [sw_sounder setOn:false];
     
     // initialize vars
     [self initCWvars];
@@ -373,10 +312,6 @@ identifyclient
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(btdata:) name:THERE_IS_DATA object:nil];
     // Start the Bluetooth discovery process
     [BTDiscovery sharedInstance];
-    
-#ifdef TUTI
-    [self initsound]; // gz now
-#endif
     
     enter_id.delegate = self;
     enter_channel.delegate = self;
@@ -443,37 +378,6 @@ identifyclient
 #ifdef SCROLLVIEWLOG
     scr_view.text = [txt_status.text stringByAppendingString:scr_view.text];
 #endif
-}
-
-// FIXME: can go to sound
--(void)initsound
-{
-    NSError *error;
-    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"tut" withExtension:@"wav"];
-    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioPath error:&error];
-    audioPlayer.numberOfLoops = -1;
-    [audioPlayer prepareToPlay];
-    //http://developer.limneos.net/?framework=AVFoundation.framework&header=AVPlayer.h
- 
-}
-
-// FIXME: can go to sound
-- (void)play_clack
-{
-    NSLog(@"play clack");
-    SystemSoundID completeSound;
-    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"clack48" withExtension:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
-    AudioServicesPlaySystemSound (completeSound);
-}
-// FIXME: can go to sound
-- (void)play_click
-{
-    NSLog(@"play click");
-    SystemSoundID completeSound;
-    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"click48" withExtension:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &completeSound);
-    AudioServicesPlaySystemSound (completeSound);
 }
 
 //FIXME: This method can go into cwcom. - modify for (a) recv (b) process
@@ -566,12 +470,6 @@ withFilterContext:(id)filterContext
 
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-}
-
-//#define BEEPI
-
 
 - (void)btdata:(NSNotification *)notification {
     NSString* ss = (notification.userInfo)[@"data"];
@@ -580,14 +478,7 @@ withFilterContext:(id)filterContext
     if ([ss isEqualToString:@"v"]) {
         key_press_t1 = fastclock();
 #ifndef NOSIDETONE
-#ifdef TUTI
-        [audioPlayer play];
-#else
-    if (sounder == true)
-        [self play_click];
-    else
         AudioOutputUnitStart(toneUnit);
-#endif
 #endif
         
         tx_timeout = 0;
@@ -607,14 +498,7 @@ withFilterContext:(id)filterContext
         
         key_release_t1 = fastclock();
 #ifndef NOSIDETONE
-#ifdef TUTI
-        [audioPlayer pause];
-#else
-        if (sounder == true)
-            [self play_clack];
-        else
-            AudioOutputUnitStop(toneUnit);
-#endif
+        AudioOutputUnitStop(toneUnit);
 #endif
         int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
         if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
@@ -634,10 +518,7 @@ withFilterContext:(id)filterContext
 {
     key_press_t1 = fastclock();
 
-    if (sounder == true)
-        [self play_click];
-    else
-        AudioOutputUnitStart(toneUnit);
+    AudioOutputUnitStart(toneUnit);
     
     tx_timeout = 0;
     int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
@@ -654,10 +535,7 @@ withFilterContext:(id)filterContext
 -(void)buttonWasReleased
 {
     key_release_t1 = fastclock();
-    if (sounder == true)
-        [self play_clack];
-    else
-        AudioOutputUnitStop(toneUnit);
+    AudioOutputUnitStop(toneUnit);
 
     int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
     if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
@@ -704,47 +582,6 @@ withFilterContext:(id)filterContext
 #endif
 }
 
-//FIXME: This method can go into cwcom.
-- (void)latch
-{
-    NSLog(@"latch");
-
-    tx_sequence++; // FIXME: This is a special packet an can go into networking.
-    tx_data_packet.sequence = tx_sequence;
-    tx_data_packet.code[0] = -1;
-    tx_data_packet.code[1] = 1;
-    tx_data_packet.n = 2;
-    
-    [self send_tx_packet];
-    
-    tx_data_packet.n = 0;
-    circuit = LATCHED;
-    [self play_click];
-
-#ifdef NOTIFICATIONS //TODO not implemented yet
-    //[ postNotification:@"Hello World"];
-#endif
-}
-
-//FIXME: This method can go into cwcom.
--(void) unlatch
-{
-    NSLog(@"unlatch");
-
-    tx_sequence++;
-    tx_data_packet.sequence = tx_sequence;
-    tx_data_packet.code[0] = -1;
-    tx_data_packet.code[1] = 2;
-    tx_data_packet.n = 2;
-    
-    [self send_tx_packet];
-    
-    tx_data_packet.n = 0;
-    
-    circuit = UNLATCHED;
-    [self play_clack];
-}
-
 -(void) sendkeepalive:(NSTimer*)t
 {
 #ifdef DEBUG_TIMER
@@ -752,23 +589,5 @@ withFilterContext:(id)filterContext
 #endif
     [self identifyclient];
 }
-
--(void) calli
-{
-    NSLog(@"Calli");
-}
-
-
- /*
-  
-  http://kob.sdf.org/morsekob/interface.htm#portpins
-  RS232     DB9     Function    
-  DTR       4       Manual Key / paddle common
-  DSR       6       Manual key / dot paddle
-  CTS       8       Dash paddle
-  RTS       7       Sounder output
-  SG        5       Sounder ground
- 
- */
 
 @end
