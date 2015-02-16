@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6724" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -136,33 +136,6 @@
                                     <rect key="frame" x="511" y="53" width="261" height="739"/>
                                 </variation>
                             </webView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Circuit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayZ-cj-DMi">
-                                <rect key="frame" x="181" y="59" width="50" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="94" y="73" width="50" height="21"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="94" y="67" width="50" height="21"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="216" y="60" width="50" height="21"/>
-                                </variation>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FLQ-1h-e8x" userLabel="sw_circuit">
-                                <rect key="frame" x="234" y="55" width="51" height="31"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="94" y="29" width="51" height="31"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="94" y="28" width="51" height="31"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="217" y="14" width="51" height="31"/>
-                                </variation>
-                            </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I68-6f-Z8e">
                                 <rect key="frame" x="165" y="20" width="66" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -178,18 +151,6 @@
                                     <rect key="frame" x="19" y="60" width="66" height="21"/>
                                 </variation>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOu-jm-SFw" userLabel="sw_sounder">
-                                <rect key="frame" x="234" y="94" width="51" height="31"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="168" y="29" width="51" height="31"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="169" y="28" width="51" height="31"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="116" y="14" width="51" height="31"/>
-                                </variation>
-                            </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NNS-t8-0xb" userLabel="sw_connect">
                                 <rect key="frame" x="239" y="15" width="51" height="31"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
@@ -202,21 +163,6 @@
                                     <rect key="frame" x="16" y="14" width="51" height="31"/>
                                 </variation>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sounder" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNi-Mf-otf">
-                                <rect key="frame" x="165" y="20" width="66" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="168" y="73" width="66" height="21"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="169" y="67" width="66" height="21"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="381" y="426" width="66" height="21"/>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRy-yq-hH1">
                                 <rect key="frame" x="165" y="20" width="66" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -246,12 +192,8 @@
                                 <exclude reference="TdE-Kw-d98"/>
                                 <exclude reference="bjt-pN-P0J"/>
                                 <exclude reference="h0Q-bH-SIa"/>
-                                <exclude reference="ayZ-cj-DMi"/>
-                                <exclude reference="FLQ-1h-e8x"/>
                                 <exclude reference="I68-6f-Z8e"/>
-                                <exclude reference="iOu-jm-SFw"/>
                                 <exclude reference="NNS-t8-0xb"/>
-                                <exclude reference="hNi-Mf-otf"/>
                                 <exclude reference="PRy-yq-hH1"/>
                             </mask>
                         </variation>
@@ -269,12 +211,8 @@
                                 <include reference="7sn-iI-3Y1"/>
                                 <include reference="TdE-Kw-d98"/>
                                 <include reference="bjt-pN-P0J"/>
-                                <include reference="ayZ-cj-DMi"/>
-                                <include reference="FLQ-1h-e8x"/>
                                 <include reference="I68-6f-Z8e"/>
-                                <include reference="iOu-jm-SFw"/>
                                 <include reference="NNS-t8-0xb"/>
-                                <include reference="hNi-Mf-otf"/>
                                 <include reference="PRy-yq-hH1"/>
                             </mask>
                         </variation>
@@ -292,12 +230,8 @@
                                 <include reference="7sn-iI-3Y1"/>
                                 <include reference="TdE-Kw-d98"/>
                                 <include reference="bjt-pN-P0J"/>
-                                <include reference="ayZ-cj-DMi"/>
-                                <include reference="FLQ-1h-e8x"/>
                                 <include reference="I68-6f-Z8e"/>
-                                <include reference="iOu-jm-SFw"/>
                                 <include reference="NNS-t8-0xb"/>
-                                <include reference="hNi-Mf-otf"/>
                                 <include reference="PRy-yq-hH1"/>
                             </mask>
                         </variation>
@@ -307,9 +241,7 @@
                         <outlet property="enter_id" destination="bjt-pN-P0J" id="c5j-dY-hlD"/>
                         <outlet property="mybutton" destination="7sn-iI-3Y1" id="Szm-Ui-O31"/>
                         <outlet property="scr_view" destination="GKA-Q0-oqB" id="53M-Jz-i3D"/>
-                        <outlet property="sw_circuit" destination="FLQ-1h-e8x" id="abl-ho-t8x"/>
                         <outlet property="sw_connect" destination="NNS-t8-0xb" id="I7B-ut-jMm"/>
-                        <outlet property="sw_sounder" destination="iOu-jm-SFw" id="PXr-nS-oQw"/>
                         <outlet property="txt_channel" destination="TdE-Kw-d98" id="yFc-e4-FqV"/>
                         <outlet property="txt_id" destination="bjt-pN-P0J" id="5zd-Z1-an5"/>
                         <outlet property="txt_server" destination="drI-GP-mUN" id="5x6-1h-kgK"/>

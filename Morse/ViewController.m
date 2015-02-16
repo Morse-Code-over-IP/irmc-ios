@@ -25,7 +25,8 @@
 //#define DEBUG_NET
 //#define DEBUG_TIMER
 //#define DEBUG_TX
-#define SCROLLVIEWLOG
+//#define SCROLLVIEWLOG
+#define NOSIDETONE
 
 //#define TUTI // AV player for sound
 
@@ -71,7 +72,7 @@ identifyclient
     char *id = (char *)[enter_id.text UTF8String];
     int channel = atoi([enter_channel.text UTF8String]);
     
-    if (strcmp(id,"")==0 || channel == 0 || channel > MAX_CHANNEL) { 
+    if (strcmp(id,"")==0 || channel == 0 ||channel > MAX_CHANNEL) {
         NSLog(@"Connect only with ID and channel");
         [self disconnectMorse];
         return;
@@ -234,7 +235,7 @@ identifyclient
     circuit = LATCHED;
     connect = DISCONNECTED;
     
-    host = @SERVERNAME_SOUNDER;
+    host = @SERVERNAME_MORSE; //@SERVERNAME_SOUNDER;
     port = PORT;
 
     // init id selector
@@ -404,7 +405,7 @@ identifyclient
     NSString *urlAddress = host;
 #ifdef DEBUG
     NSLog(@"Webview:");
-    NSLog(host);
+    //NSLog(host);
 #endif
     NSURL *url = [NSURL URLWithString:urlAddress];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
@@ -448,8 +449,6 @@ identifyclient
 -(void)initsound
 {
     NSError *error;
-    NSBundle* bundle = [NSBundle mainBundle];
-    NSString* bundleDirectory = (NSString*)[bundle bundlePath];
     NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"tut" withExtension:@"wav"];
     audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioPath error:&error];
     audioPlayer.numberOfLoops = -1;
@@ -575,18 +574,12 @@ withFilterContext:(id)filterContext
 
 
 - (void)btdata:(NSNotification *)notification {
-    /*
-    NSDictionary *connectionDetails = @{@"isConnected": @(isBluetoothConnected)};
-    +  [[NSNotificationCenter defaultCenter] postNotificationName:RWT_BLE_SERVICE_CHANGED_STATUS_NOTIFICATION object:self userInfo:connectionDetails];
-    +}
-*/
-//    +  BOOL isConnected = [(NSNumber *) (notification.userInfo)[@"isConnected"] boolValue];
-
     NSString* ss = (notification.userInfo)[@"data"];
-    NSLog(ss);
+    //NSLog(ss);
     
     if ([ss isEqualToString:@"v"]) {
         key_press_t1 = fastclock();
+#ifndef NOSIDETONE
 #ifdef TUTI
         [audioPlayer play];
 #else
@@ -595,8 +588,7 @@ withFilterContext:(id)filterContext
     else
         AudioOutputUnitStart(toneUnit);
 #endif
-        
-        
+#endif
         
         tx_timeout = 0;
         int timing = (int) ((key_press_t1 - key_release_t1) * -1); // negative timing
@@ -614,6 +606,7 @@ withFilterContext:(id)filterContext
     {
         
         key_release_t1 = fastclock();
+#ifndef NOSIDETONE
 #ifdef TUTI
         [audioPlayer pause];
 #else
@@ -621,6 +614,7 @@ withFilterContext:(id)filterContext
             [self play_clack];
         else
             AudioOutputUnitStop(toneUnit);
+#endif
 #endif
         int timing =(int) ((key_release_t1 - key_press_t1) * 1); // positive timing
         if (abs(timing) > TX_WAIT) timing = -TX_WAIT; // limit to timeout FIXME this is the negative part
