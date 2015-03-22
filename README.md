@@ -4,20 +4,25 @@ irmc-ios
 iOS Version of [IRMC](https://github.com/8cH9azbsFifZ/irmc).
 This is a prototype under development... 
 
+If you want to build the app: 
+1. Download Xcode
+2. Register a Apple development key 
+3. Build the app for your iOS devices
+
+The app is not available in the official App Store. It is open source, you can build it yourself and put
+it on your iOS devices.
+
+# Interface to external Morse Key
 An external interface with bluetooth low energy can be connected.
 https://github.com/8cH9azbsFifZ/ble-morse
 
-Version v0.4 of the current and the repo above will work together.
+Version v0.2 of the current and the repo above will work together.
 
-![Screen](/img/screen.png?raw=true "Screen")
-![Experimental Interface](/img/ext_interface.jpg?raw=true "Experimental Interface")
+![Experimental Interface](https://raw.githubusercontent.com/8cH9azbsFifZ/ble-morse/master/img/hello_morse.jpg?raw=true "Experimental Interface")
 
-Interface via audio
-===================
+## Interface via audio
 ![Experimental Interface](/img/ext_interface_audio.jpg?raw=true "Experimental Interface")
 
-
-Code Quality
-============
+# Code Quality
 This is experimental code.
 
