@@ -19,7 +19,6 @@
 		7F1E35351A5AE782008D519D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E35341A5AE782008D519D /* AppDelegate.m */; };
 		7F1E35381A5AE782008D519D /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E35361A5AE782008D519D /* Morse.xcdatamodeld */; };
 		7F1E353E1A5AE782008D519D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F1E353C1A5AE782008D519D /* Main.storyboard */; };
-		7F1E35431A5AE782008D519D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F1E35411A5AE782008D519D /* LaunchScreen.xib */; };
 		7F1E354F1A5AE782008D519D /* MorseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1E354E1A5AE782008D519D /* MorseTests.m */; };
 		7F2977B81A8FDF7700252B4D /* Bluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977B71A8FDF7700252B4D /* Bluetooth.m */; };
 		7F2977BE1A8FE90A00252B4D /* Tone.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2977BD1A8FE90A00252B4D /* Tone.m */; };
@@ -60,7 +59,6 @@
 		7F1E35371A5AE782008D519D /* Morse.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Morse.xcdatamodel; sourceTree = "<group>"; };
 		7F1E35391A5AE782008D519D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7F1E353D1A5AE782008D519D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7F1E35421A5AE782008D519D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		7F1E35481A5AE782008D519D /* MorseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MorseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F1E354D1A5AE782008D519D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F1E354E1A5AE782008D519D /* MorseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MorseTests.m; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 				7F1E35391A5AE782008D519D /* ViewController.h */,
 				7F1E35361A5AE782008D519D /* Morse.xcdatamodeld */,
 				7F1E353C1A5AE782008D519D /* Main.storyboard */,
-				7F1E35411A5AE782008D519D /* LaunchScreen.xib */,
 				7F2977B91A8FE32C00252B4D /* Bluetooth */,
 				7F1E352F1A5AE782008D519D /* Supporting Files */,
 				7FC525C71A5B3651005A89CA /* Networking */,
@@ -272,6 +269,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -295,7 +293,6 @@
 				7F0E9E2A1A61D16900CDE9C2 /* kob.png in Resources */,
 				7F0E9E261A61D0B600CDE9C2 /* key.xcassets in Resources */,
 				7F1E353E1A5AE782008D519D /* Main.storyboard in Resources */,
-				7F1E35431A5AE782008D519D /* LaunchScreen.xib in Resources */,
 				7FA557D31A5F227C00240D74 /* key.png in Resources */,
 				7F0E9E2C1A61D19900CDE9C2 /* kob1.png in Resources */,
 				7F2A77571A646CCA005A6813 /* sounder.png in Resources */,
@@ -374,14 +371,6 @@
 				7F1E353D1A5AE782008D519D /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		7F1E35411A5AE782008D519D /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7F1E35421A5AE782008D519D /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -473,10 +462,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Morse/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
 		};
@@ -488,10 +478,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Morse/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
